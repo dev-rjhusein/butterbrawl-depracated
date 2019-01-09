@@ -1,8 +1,3 @@
-function checkUsername(){
-
-}
-
-
 function checkCreds(username, password){
 
     if(username.length < 1){

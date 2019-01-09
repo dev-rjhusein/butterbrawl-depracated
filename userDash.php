@@ -15,28 +15,19 @@
                     getSelfRank(\"".$_SESSION['firstName']."\");
             '>"; 
 ?>
+<div class="container">
+
 
     <!-- Page Header -->
-    <?php echo "<h1>".$_SESSION['firstName']."'s Dashboard</h1>"; ?>
+    <?php echo "<h1 class='jumbotron text-center noBottom'>".$_SESSION['firstName']."'s Dashboard</h1>"; ?>
 
 
-          
-    <!-- Enter a new weight log -->
-        <input class="input-group-text" type="number" min="100" max="900" name="newWeight" id="newWeight" placeholder="Enter new weight">
-        <?php echo "<button type='button' onclick='
-                                        addNewLog(\"".$_SESSION['username']."\", document.querySelector(\"#newWeight\").value); 
-                                        getRankings();
-                                        reloadBMI(document.querySelector(\"#newWeight\").value);
-                                        getSelfRank(\"".$_SESSION['firstName']."\");
-                    'class='btn btn-outline-success' >New Log</button><br>"; 
-        ?>
-
-    <!-- Logout Button -->
-    <br><button type="button" onclick="window.location.replace('/session_functions/logout.php')" class="btn btn-outline-danger">Logout</button>
 
     <!-- BMI and Ranking Displays -->
-    <h2 id="rankLabel"> </h2>
-    <h2 id="bmiLabel"> </h2>
+    <div class="row">
+        <h2 class="col-md-6 text-center" id="rankLabel"> </h2>
+        <h2 class="col-md-6 text-center" id="bmiLabel"> </h2>
+    </div>
 
 
     <!-- Reload the BMI -- Function using PHP must be declared in <script> tag -->
@@ -54,10 +45,34 @@
 
 
     <!-- iframes used to display weight log and ranking list -->
-        <iframe id="iframeRank" src="rankingList.php" height="300" width = "300"></iframe>
-        <iframe id="iframeLog" src="weightLogs.php" height="300" width = "300"> </iframe>
+    <div class="row">
+        <iframe class="col-md-6" id="iframeRank" src="rankingList.php" height="300" width = "300"></iframe>
+        <iframe class="col-md-6" id="iframeLog" src="weightLogs.php" height="300" width = "300"> </iframe>
+    </div>
 
 
+    <!-- Enter a new weight log -->
+    <div class="row">
+        <label class="sr-only" for="newWeight">Record New Weight:</label>
+        <input class="form-control col-md-3" style="margin-top: 5px;" type="number" min="100" max="900" name="newWeight" id="newWeight" placeholder="Enter new weight log">
+
+        <?php echo "<button type='button' onclick='
+                                        addNewLog(\"".$_SESSION['username']."\", document.querySelector(\"#newWeight\").value); 
+                                        getRankings();
+                                        reloadBMI(document.querySelector(\"#newWeight\").value);
+                                        getSelfRank(\"".$_SESSION['firstName']."\");
+                    'class='btn btn-large btn-success form-group col-md-3'style='margin-top: 5px;'' >Add Log</button><br>"; 
+        ?>
+    </div>
+
+
+
+
+
+    <!-- Logout Button -->
+    <br><button type="button" onclick="window.location.replace('/session_functions/logout.php')" class="btn btn-outline-danger col">Logout</button>
+
+</div>
 <?php
     include ("partials/footer.inc");
 ?>

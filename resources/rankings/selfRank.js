@@ -18,19 +18,19 @@ function getSelfRank(username){
             let suffix;
             switch(rank){
                 case 1:
-                    suffix = "st!";
+                    suffix = "st";
                     break;
                 case 2:
-                    suffix = "nd!";
+                    suffix = "nd";
                     break;
                 case 3:
-                    suffix = "rd!";
+                    suffix = "rd";
                     break;
                 default:
-                    suffix = "th!";
+                    suffix = "th";
             }
 
-            document.querySelector("#rankLabel").innerText = "You are " + rank + suffix;            
+            document.querySelector("#rankLabel").innerText = "You are in " + rank + suffix +" place!";           
 
         }
     }

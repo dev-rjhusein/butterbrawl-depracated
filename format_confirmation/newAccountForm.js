@@ -17,9 +17,12 @@ function passwordMatch(){
 
 // Shows error if username exists in DB already
 function checkExists(username){
+    let warnMsg = document.querySelector("#usernameFeedback");
+    let submitBtn = document.querySelector("#submitNewAccount");
     if(username.length < 5){
-        document.getElementById("usernameFeedback").innerHTML = "That username is too short";
-        document.getElementById("submitNewAccount").setAttribute("disabled", "true");
+        warnMsg.style.color = "red";
+        warnMsg.innerHTML = "That username is too short";
+        submitBtn.setAttribute("disabled", "true");
         return;
     }
     let xhttp = new XMLHttpRequest();
@@ -27,11 +30,13 @@ function checkExists(username){
     xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             if(this.responseText == 0){
-                document.getElementById("usernameFeedback").innerHTML = "Available!";
-                document.getElementById("submitNewAccount").removeAttribute("disabled");
+                warnMsg.style.color = "green";
+                warnMsg.innerHTML = "Available!";
+                submitBtn.removeAttribute("disabled");
             }else{
-                document.getElementById("usernameFeedback").innerHTML = "That username already exists";
-                document.getElementById("submitNewAccount").setAttribute("disabled", "true");
+                warnMsg.style.color = "red";
+                warnMsg.innerHTML = "That username already exists";
+                submitBtn.setAttribute("disabled", "true");
             }
         }
     }
