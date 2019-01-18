@@ -6,39 +6,49 @@ include ("partials/header.inc");
 <body onload="document.createAccountForm.reset();">
 
 <div class="container">
+    <!-- LOGO -->
     <div class="col">
         <img class="rounded mx-auto d-block" src="/resources/images/bblogo.png" height="30%" width="auto">
     </div>
     
     <form name="createAccountForm" action="database_functions/submitNewAccount.php" method="POST">
 
+            <!-- USERNAME -->
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="username">Username: </label>
+                <div class="row">
+                    <label style="margin-left: 15px;" for="username">Username: </label>     
+                    <!-- replace with popover -->
+                    <div class="form-group col-md-6">
+                        <p style="margin:0; padding:0; font-size: 15px;" id="usernameFeedback"></p>
+                    </div>
+                </div>
                 <input class="form-control" type="text" name="username" id="username" maxlength="30" onkeyup="checkExists(this.value)" required>
-
             </div>
 
-            <!-- replace with popover -->
+            <!-- Email address -->
             <div class="form-group col-md-6">
-                <p style="padding-top: 4vh" id="usernameFeedback"></p>
-            </div>
-        </div>
-
-
-        <div class="form-row">            
-            <div class="form-group col-md-6">
-                <label for="password1">Password: </label>
-                <input class="form-control" type="password" name="password1" onblur="passwordMatch()" id="password1" maxlength="30" required>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="password2">Repeat Password: </label>
-                <input class="form-control" type="password" name="password2" onblur="passwordMatch()" id="password2" maxlength="30" required>
+                <label style="margin-left: 15px;" for="email">Email: </label>                    
+                <input class="form-control" type="email" name="email" id="email" maxlength="100" required>
             </div>
             
         </div>
 
+        <!-- Password -->
+        <div class="form-row">            
+            <div class="form-group col-md-6">
+                <label for="password1">Password: </label>
+                <input class="form-control" type="password" name="password1" onkeyup="passwordMatch()" id="password1" maxlength="30" required>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="password2">Repeat Password: </label>
+                <input class="form-control" type="password" name="password2" onkeyup="passwordMatch()" id="password2" maxlength="30" required>
+            </div>
+            
+        </div>
+
+        <!-- FIRST/LAST NAME -->
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="first_name">First Name:</label>
@@ -50,6 +60,7 @@ include ("partials/header.inc");
         </div>
     </div>
 
+    <!-- WEIGHT/HEIGHT/GENDER/DOB -->
     <div class="form-row">
         <div class="form-group col-md-2">
             <label for="weight">Weight:</label>
@@ -90,11 +101,14 @@ include ("partials/header.inc");
         </div>
 
         <div class="form-group col-md-2">
-            <input type="radio" name="gender" value="male" required> Male<br>
-            <input type="radio" name="gender" value="female"> Female<br>
+            <input type="radio" name="gender" value="Male" required><label>Male</label><br>
+            <input type="radio" name="gender" value="Female"><label>Female</label>
         </div>
     </div>
 
+
+
+    <!-- SUBMIT -->
             <button class="btn btn-success btn-large btn-block" type="submit" name="submitNewAccount" id="submitNewAccount" disabled="true">Create Account</button>
             <button class="btn btn-secondary btn-large btn-block" type="button" onclick="goBack()">Cancel</button>
             <script>

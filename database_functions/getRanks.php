@@ -7,44 +7,33 @@
     $startWeights = array();
     $currentWeights = array();
 
-    //get everyones user_names and original weights;
-    $getNameAndWeight = "SELECT user_name, first_name, starting_weight FROM user_account;";
+    //Get everyones user_names and original weights;
+    $getNameAndWeight = "SELECT user_name, first_name, starting_weight, current_weight FROM user_account;";
 
     if($result = mysqli_query($connection, $getNameAndWeight)){
-        $nameWeightArray = array();
-        //Move result to an array
+        $getAllArray = array();
+
+        //Move result to an array of strings
         while($row = mysqli_fetch_assoc($result)){
-            $nameWeightArray[] = $row;
+            $getAllArray[] = $row;
         }
 
         //Move to array of key:value 
-        $json = json_encode($nameWeightArray);
+        $json = json_encode($getAllArray);
         $arr = json_decode($json);
 
-        //Move to reg arrays
-        for($i = 0; $i < sizeof($arr); $i++){
+        //Move to separate arrays for easier handling
+        for($i = 0; $i < sizeof($getAllArray); $i++){
             $usernames[] = $arr[$i]->user_name;
-            $startWeights[] = $arr[$i]->starting_weight;
             $names[] = $arr[$i]->first_name;
+            $startWeights[] = $arr[$i]->starting_weight;
+            $currentWeights[] = $arr[$i]->current_weight;
         }
       
     }else{
-        echo "Error";
+        echo "Error getting names and weights: ".mysqli_error($connection);
     }
 
-    
-        // Loop
-        //   Use name to get current weight and store in $currentWeights
-        for($i = 0; $i < sizeof($startWeights); $i++){
-            $getCurrentWeight = "SELECT weight FROM ".$usernames[$i]."_weight_log ORDER BY id DESC LIMIT 1;";
-            if($result = mysqli_query($connection, $getCurrentWeight)){
-                $row = mysqli_fetch_row($result);
-                $currentWeights[] = $row[0];
-
-            }else{
-                echo "Error getting current weights";
-            }
-        }
         
         //Save percentages to an array
         $percentLost = array();
@@ -56,10 +45,10 @@
         //Save name : percentage pairs in assoc array
         $namesAndPercents = array();
         for($i = 0; $i < sizeof($percentLost); $i++){
-            $namesAndPercents[$names[$i]] = $percentLost[$i];
+            $namesAndPercents[$i] = array($usernames[$i], $names[$i], $percentLost[$i]);
         }
 
-        //return the assoc array with names and percentages to /rankings/rankingList.js call
+        //return the assoc array with names and percentages to /rankings/rankingList.js
         echo json_encode($namesAndPercents);
     
 

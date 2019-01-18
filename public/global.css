@@ -1,0 +1,39 @@
+
+.jumbotron{
+    background:transparent;
+    color: white;
+}
+
+.nav-item:hover{
+    background-color: #143351;
+}
+
+body{
+    background-color: #143351;
+}
+
+th{
+    text-align: center;
+    color:white;
+}
+
+td{
+    color:white;
+}
+
+iframe{
+    border-color: white;
+    margin:0;
+    padding:0;
+}
+
+caption{
+    color:white;
+    text-align: center;
+    font-size: 150%;
+    caption-side: top;
+}
+
+label{
+    color:white;
+}

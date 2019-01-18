@@ -5,9 +5,11 @@
     $user = $_GET['u'];
     $weight = $_GET['w'];
 
+    
     //Make a new log entry in the history logs
     $insertQuery = "INSERT INTO ".$user."_weight_log 
                     (recordDate, weight) values (CURDATE(), \"".$weight."\");";
+
 
     if(mysqli_query($connection, $insertQuery)){
 

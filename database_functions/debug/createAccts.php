@@ -1,15 +1,17 @@
+<!-- Use this script to reset 10 user accounts -->
 <?php 
 include ('../db_connect.php');
 connDB();
 
 $createString = "
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
-    'rjhusein3',
-    'booger',
+    'rjhusein1',
+    'password',
     'Rami',
     'Husein',
+    'rjhusein3@gmail.com',
     '225',
     '225',
     '1990-10-03',
@@ -21,12 +23,13 @@ VALUES(
 
 
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
-    'rjhusein4',
-    'booger',
+    'rjhusein2',
+    'password',
     'Brittany',
     'Husein',
+    'rjhusein3@gmail.com',
     '160',
     '160',
     '1990-10-03',
@@ -38,12 +41,13 @@ VALUES(
 
 
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
-    'rjhusein2',
-    'booger',
+    'rjhusein3',
+    'password',
     'Sayeed',
     'Husein',
+    'rjhusein3@gmail.com',
     '100',
     '100',
     '1990-10-03',
@@ -55,12 +59,13 @@ VALUES(
 
 
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
-    'rjhusein1',
-    'booger',
+    'rjhusein4',
+    'password',
     'Courtney',
     'Newell',
+    'rjhusein3@gmail.com',
     '161',
     '161',
     '1990-10-03',
@@ -72,12 +77,13 @@ VALUES(
 
 
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
     'rjhusein5',
-    'booger',
+    'password',
     'Andrew',
     'Newell',
+    'rjhusein3@gmail.com',
     '180',
     '180',
     '1990-10-03',
@@ -89,12 +95,13 @@ VALUES(
 
 
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
     'rjhusein6',
-    'booger',
+    'password',
     'Erin',
     'Scott',
+    'rjhusein3@gmail.com',
     '200',
     '200',
     '1990-10-03',
@@ -106,12 +113,13 @@ VALUES(
 
 
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
     'rjhusein7',
-    'booger',
+    'password',
     'Cindy',
     'Garten',
+    'rjhusein3@gmail.com',
     '140',
     '140',
     '1990-10-03',
@@ -123,12 +131,13 @@ VALUES(
 
 
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
     'rjhusein8',
-    'booger',
+    'password',
     'Lauri',
     'Ruth',
+    'rjhusein3@gmail.com',
     '240',
     '240',
     '1990-10-03',
@@ -140,12 +149,13 @@ VALUES(
 
 
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
     'rjhusein9',
-    'booger',
+    'password',
     'Mike',
     'Ruth',
+    'rjhusein3@gmail.com',
     '210',
     '210',
     '1990-10-03',
@@ -157,12 +167,13 @@ VALUES(
 
 
 INSERT INTO user_account
-(user_name, password, first_name, last_name, starting_weight, current_weight, dob, height_ft, height_in, gender)
+(user_name, password, first_name, last_name, email, starting_weight, current_weight, dob, height_ft, height_in, gender)
 VALUES(
     'rjhusein10',
-    'booger',
+    'password',
     'Alyssa',
     'Rogers',
+    'rjhusein3@gmail.com',
     '175',
     '175',
     '1990-10-03',
@@ -175,7 +186,7 @@ VALUES(
 if(mysqli_multi_query($connection, $createString)){
 
 }else{
-    echo "Error! : ".mysqli_error($connection)." ~~~ ".$createString;
+    echo "Error making new account: ".mysqli_error($connection)." ~~You wrote: ".$createString;
 }
 
 //Clear mysqli_multi_query results
@@ -208,7 +219,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+                
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }
@@ -260,7 +271,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+                
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }
@@ -312,7 +323,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+                
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }
@@ -364,7 +375,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+                
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }
@@ -416,7 +427,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+                
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }
@@ -468,7 +479,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+                
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }
@@ -520,7 +531,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+                
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }
@@ -572,7 +583,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+                
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }
@@ -624,7 +635,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }
@@ -676,7 +687,7 @@ if(mysqli_query($connection, $dumpLogString)){
             recordDate, weight) values (CURDATE(), '".$cWeight."');";
 
             if(mysqli_query($connection, $firstLogEntry)){
-                header("Location: /index.php");
+
             }else{
                 echo "Error! : ".mysqli_error($connection)." ~~~ ".$firstLogEntry;
             }

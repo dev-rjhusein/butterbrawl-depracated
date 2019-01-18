@@ -1,10 +1,23 @@
 <?php
+    session_start();
+    $page_title = "Title";
     include ("partials/header.inc");
 ?>
-
 <body>
 
-<div id="rankingList"> </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

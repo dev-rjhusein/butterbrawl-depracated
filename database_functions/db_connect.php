@@ -1,10 +1,12 @@
+<!-- The use of this script relies on database_functions/debug/resetUserAccoutTable.php being ran first -->
+
 <?php
 
 function connDB(){
 	global $connection;
 	
-	// connect to the database
-	$connection = new mysqli("localhost",'user','booger420',"family_weight_tracker");
+	//Connect to the database
+	$connection = new mysqli("localhost",'user','password',"database_name");
 
 	// if failed
 	if (mysqli_connect_errno()){

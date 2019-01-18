@@ -1,7 +1,8 @@
-function getRankings(){
+function getRankings(firstname){
 
-    setTimeout(()=>{    //Wait for history logs to save/load before loading ranks 
-        let rankDoc = document.querySelector("#iframeRank").contentDocument;
+    setTimeout(()=>{    //Wait for history logs to save/load before loading ranks
+
+        let rankDoc = parent.document.querySelector("#iframeRank").contentDocument; //parent.document because this is called from within an iframe
 
         //Prevent more than one table in the rank list iframe document
         let item = rankDoc.querySelector("table");
@@ -13,15 +14,29 @@ function getRankings(){
         xhttp.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
 
-                //Gets name : percentageLost from getRanks.php
+                //Get [username, first_name, percent_lost] via /database_functions/getRanks.php
                 let result = JSON.parse(this.responseText);
+                
 
-                //Save array of sorted names DESCENDING -- (largest number == more weight lost == higher rank)
-                let sortedNames = Object.keys(result).sort((a,b) => {return result[b] - result[a]});
+                //Comparator sorts greatest to least by result[i][2] (the percent lost)
+                function Comparator(a, b) {
+                if (a[2] > b[2]) return -1;
+                if (a[2] < b[2]) return 1;
+                return 0;
+                }
+
+                //Perform sort
+                result = result.sort(Comparator);
+
             
                 //Create a table
                 let tb = document.createElement("table");
                 tb.classList.add("table");
+
+                //Add a caption
+                let cap = document.createElement("caption");
+                cap.innerText = "Player Ranking";
+                tb.appendChild(cap);
 
                 //Initial row with headers
                 let tr = document.createElement("tr");
@@ -37,9 +52,15 @@ function getRankings(){
                 tr.appendChild(th1);
                 tr.appendChild(th2);
                 
+                let rank = 100;
+                //Iterate through sorted array and make each a table row (sorted by result[i][2])
+                for(let i = 0; i < result.length; i++){
 
-                //Iterate through JSON object and make each a table row
-                for(let i = 0; i < sortedNames.length; i++){
+                    //Set self rank
+                    if(result[i][1] == firstname){
+                        rank = i + 1;
+                    }
+
                     let tr = document.createElement("tr");
                     tb.appendChild(tr);
 
@@ -47,8 +68,9 @@ function getRankings(){
                     let td2 = document.createElement("td");
 
 
-                    let name = sortedNames[i];
-                    let percent = result[sortedNames[i]];
+                    let name = result[i][1];
+                    let percent = result[i][2];
+
                     percent *= 100; //Convert to whole number;
                     percent = percent.toFixed(2) //truncate useless decimal places
 
@@ -66,6 +88,25 @@ function getRankings(){
 
                 //Append the table to an empty div 
                 rankDoc.querySelector("#rankingList").appendChild(tb);
+
+                //Use placing suffixes
+                let suffix;
+                switch(rank){
+                    case 1:
+                        suffix = "st";
+                        break;
+                    case 2:
+                        suffix = "nd";
+                        break;
+                    case 3:
+                        suffix = "rd";
+                        break;
+                    default:
+                        suffix = "th";
+                }
+    
+                parent.document.querySelector("#rankLabel").innerText = "You are in " + rank + suffix +" place!";   //parent.document because this is called from within an iframe         
+    
 
             }
         }
